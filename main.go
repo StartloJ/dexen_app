@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/StartloJ/dexen_app/internal/logs"
+	"github.com/StartloJ/dexen_app/src/handlers"
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/middleware/logger"
 	"github.com/spf13/viper"
@@ -49,6 +50,8 @@ func main() {
 		msg := fmt.Sprintf("✋ %s", "Hello")
 		return c.SendString(msg)
 	})
+	api_v1.Get("/base-os", handlers.GetBaseOs)
+	api_v1.Get("/version", handlers.GetAppVersion)
 
 	sugar.Infoln("New server had running...")
 	sugar.Fatalln(app.Listen(viper.GetString("app_listen")))

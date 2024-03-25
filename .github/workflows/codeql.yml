@@ -1,0 +1,33 @@
+---
+name: "CodeQL"
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "**"
+      - "!docs/**"
+      - "!**.md"
+  pull_request:
+    paths:
+      - "**"
+      - "!docs/**"
+      - "!**.md"
+
+jobs:
+  analyse:
+    name: Analyse
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        # Override language selection by uncommenting this and choosing your languages
+        with:
+          languages: go
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3

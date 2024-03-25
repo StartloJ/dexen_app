@@ -13,9 +13,10 @@ build:
 docker:
 	docker build -t xendit/dexen:$(TAG) --build-arg=COMMIT=$(GIT_COMMIT) --build-arg=VERSION=$(VERSION) --build-arg=DATE=$(DATE) .
 
+## lint: 🚨 Run lint checks
 .PHONY: lint
 lint:
-	docker run --rm -v $(pwd):/go/src/github.com/StartloJ/dexen_app -w /go/src/github.com/StartloJ/dexen_app $(GOLANGCI_CONTAINER) golangci-lint run
+	go run github.com/golangci/golangci-lint/cmd/golangci-lint@v1.57.1 run ./...
 
 .PHONY: clean
 clean:

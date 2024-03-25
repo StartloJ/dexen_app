@@ -1,19 +1,25 @@
 package handlers
 
 import (
+	"runtime"
+
 	"github.com/gofiber/fiber/v3"
 	"github.com/spf13/viper"
-	"github.com/zcalusic/sysinfo"
 )
 
 // GetBaseOs is a function to return Go base OS in runtime.
 func GetBaseOs(c fiber.Ctx) error {
-	var sys_info sysinfo.SysInfo
+	// var sys_info sysinfo.SysInfo
+	// return c.Status(fiber.StatusOK).JSON(fiber.Map{
+	// 	"status":          "success",
+	// 	"runtime_os":      sys_info.OS.Vendor,
+	// 	"runtime_version": sys_info.OS.Release,
+	// 	"runtime_arch":    sys_info.OS.Architecture,
+	// })
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"status":          "success",
-		"runtime_os":      sys_info.OS.Vendor,
-		"runtime_version": sys_info.OS.Release,
-		"runtime_arch":    sys_info.OS.Architecture,
+		"status":       "success",
+		"runtime_os":   runtime.GOOS,
+		"runtime_arch": runtime.GOARCH,
 	})
 }
 

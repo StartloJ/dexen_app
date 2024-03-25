@@ -34,7 +34,11 @@ func main() {
 	viper.AutomaticEnv()
 
 	sugar := logs.CreateLogger().Sugar()
-	defer sugar.Sync()
+	defer func() {
+		if err := sugar.Sync(); err != nil {
+			sugar.Warnln("Log doesn't sync completed")
+		}
+	}()
 
 	app := fiber.New()
 	app.Use(logger.New(logger.Config{

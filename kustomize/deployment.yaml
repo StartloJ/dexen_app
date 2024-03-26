@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dexen-deployment
+  namespace: workload1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      deployment: dexen-app
+  template:
+    metadata:
+      labels:
+        deployment: dexen-app
+    spec:
+      containers:
+      - name: dexen
+        image: dukecyber/dexen:0.1.0-dev
+        ports:
+        - name: http
+          containerPort: 3000
+          protocol: TCP
+        resources:
+          requests:
+            memory: 20Mi
+            cpu: 15m
+          limits:
+            cpu: 50m
+        env:
+        - name: APP_LISTEN
+          value: ":3000"

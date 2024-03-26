@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: dexen-svc
+  namespace: workload1
+spec:
+  selector:
+    deployment: dexen-app
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000

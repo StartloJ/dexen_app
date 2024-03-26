@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dexen-ingress
+  namespace: workload1
+  annotations: {}
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: dexen.ocpacth.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dexen-svc
+            port:
+              number: 3000
